@@ -232,16 +232,81 @@ p {
         bottom: 0;
     }
     .nav-item {
-    display:block;    
+    display:block;
     }
 
 }
 
-<!--  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
-  <link rel="stylesheet" href="firstcss.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+/* Custom Language Dropdown Styles */
+.lang-dropdown {
+    position: relative;
+    display: inline-block;
+    float: right;
+}
+.lang-dropdown-btn {
+    background: transparent;
+    border: none;
+    color: #9d9d9d;
+    padding: 15px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 20px;
+}
+.lang-dropdown-btn:hover, .lang-dropdown-btn:focus {
+    color: #fff;
+    text-decoration: none;
+}
+.lang-dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #222;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border: 1px solid #444;
+    border-radius: 4px;
+    z-index: 1000;
+}
+.lang-dropdown-content a {
+    color: #ccc;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    text-align: left;
+}
+.lang-dropdown-content a:hover {
+    background-color: #333;
+    color: #fff;
+}
+.lang-dropdown:hover .lang-dropdown-content {
+    display: block;
+}
+@media (max-width: 767px) {
+    .lang-dropdown {
+        float: none;
+        display: block;
+        width: 100%;
+    }
+    .lang-dropdown-btn {
+        padding: 10px 15px;
+    }
+    .lang-dropdown-content {
+        position: static;
+        display: none;
+        float: none;
+        width: 100%;
+        background-color: #111;
+        box-shadow: none;
+        border: none;
+    }
+    .lang-dropdown.open .lang-dropdown-content {
+        display: block;
+    }
+}
 
 </style>
 
@@ -265,11 +330,27 @@ p {
     <nav class="navbar navbar-inverse">
         <div class="container">
             <ul class="nav navbar-nav">
-              <li><a href="/">Home</a></li>
-              <li><a href="#publications">Publications</a></li>
-              <li><a href="#teaching">Teaching</a></li>
-              <li><a href="#notes">Notes</a></li>
+              <li><a href="/" data-lang-key="nav_home">Home</a></li>
+              <li><a href="#publications" data-lang-key="nav_publications">Publications</a></li>
+              <li><a href="#teaching" data-lang-key="nav_teaching">Teaching</a></li>
+              <li><a href="#notes" data-lang-key="nav_notes">Notes</a></li>
             </ul>
+            <div class="lang-dropdown">
+              <button class="lang-dropdown-btn" onclick="toggleLangDropdown(event)" aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: text-bottom; margin-right: 5px;" class="lang-icon">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span id="selected-lang-name">English</span> <span class="caret" style="margin-left: 5px;"></span>
+              </button>
+              <div class="lang-dropdown-content" id="lang-dropdown-menu">
+                <a href="#" onclick="selectLang('en', event)">English</a>
+                <a href="#" onclick="selectLang('de', event)">Deutsch (demnächst verfügbar)</a>
+                <a href="#" onclick="selectLang('fr', event)">Français (en construction)</a>
+                <a href="#" onclick="selectLang('ja', event)">日本語　（作成中）</a>
+              </div>
+            </div>
         </div>
     </nav>
 
@@ -287,19 +368,19 @@ p {
                 <!-- Main Image -->
                 <img class="img-responsive" src="hilltop.jpg" width="300" height="50" alt=""><br>
                 
-                <p style="margin-top:3%; text-align:justify;">
-			
-			I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.<p>
+                <p style="margin-top:3%; text-align:justify;" data-lang-key="bio_intro">
+   
+   I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.</p>
 
-			Previously, I have worked as a postdoctoral researcher with <a href="https://people.eecs.berkeley.edu/~alexch/">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href="https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href="http://www.cs.ucl.ac.uk/staff/j.groth/">Professor Jens Groth</a> and <a href="http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.<p>             
+   <p style="text-align:justify;" data-lang-key="bio_prev">Previously, I have worked as a postdoctoral researcher with <a href="https://people.eecs.berkeley.edu/~alexch/">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href="https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href="http://www.cs.ucl.ac.uk/staff/j.groth/">Professor Jens Groth</a> and <a href="http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.</p>
 
-            </div> 
+            </div>
 
             <!-- Contact Info on the Sidebar -->
             <div class="col-md-4">
-                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;">Jonathan Bootle</div></b><br>
+                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;" data-lang-key="sidebar_name">Jonathan Bootle</div></b><br>
                 <p><b>jbt at zurich dot ibm dot com</b><br>
-			<p>Researcher in the Foundational Cryptography Group in the <a HREF="https://www.zurich.ibm.com/security/">Security Department</a> at <a HREF="https://www.zurich.ibm.com/">IBM Research Z&uuml;rich</a>.
+   <p data-lang-key="sidebar_role">Researcher in the Foundational Cryptography Group in the <a HREF="https://www.zurich.ibm.com/security/">Security Department</a> at <a HREF="https://www.zurich.ibm.com/">IBM Research Z&uuml;rich</a>.
                 </p>
             </div>
     <!--
@@ -318,11 +399,11 @@ p {
             
 	    <div class="col-md-8">	
 	    <!-- Old: <div class="col-md-8" style="height: 120vh;"> -->
-		<h2 id="publications">Publications</h2>
-            
-<p>See also <a HREF="https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en">Google Scholar</a> and <a HREF="https://dblp.org/pid/165/8346.html">DBLP</a>.</p>
+	 <h2 id="publications" data-lang-key="title_publications">Publications</h2>
+	           
+<p data-lang-key="pub_helper_1">See also <a HREF="https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en">Google Scholar</a> and <a HREF="https://dblp.org/pid/165/8346.html">DBLP</a>.</p>
 
-                <p>Publisher links are often <span class="nf">non-free</span>. Links to <span class="free">free</span> preprints and e-prints are included where available. Presentation slides and other <span class="aux">extra materials</span> are sometimes included.</p>
+	               <p data-lang-key="pub_helper_2">Publisher links are often <span class="nf">non-free</span>. Links to <span class="free">free</span> preprints and e-prints are included where available. Presentation slides and other <span class="aux">extra materials</span> are sometimes included.</p>
 
 
                 <ul class="vert">
@@ -560,25 +641,25 @@ p {
 
             </div>
 
-            <div class="col-md-8">	
-		<h2 id="teaching">Teaching</h2>
+            <div class="col-md-8">
+  <h2 id="teaching" data-lang-key="title_teaching">Teaching</h2>
             
-			<p> I am teaching the Autumn 2026 course "263-4665-00L, Zero-Knowledge Proofs" at ETH Zurich. The catalogue entry for the course is <a href="https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href="https://moodle-app2.let.ethz.ch/course/view.php?id=28404", target='_blank'> here</a>. The course covers roughly the following topics:</p>
+   <p data-lang-key="teaching_intro"> I am teaching the Autumn 2026 course "263-4665-00L, Zero-Knowledge Proofs" at ETH Zurich. The catalogue entry for the course is <a href="https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href="https://moodle-app2.let.ethz.ch/course/view.php?id=28404", target='_blank'> here</a>. The course covers roughly the following topics:</p>
 
             <ul>
-                <li>Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;</li>
-                <li>First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;</li>
-                <li>Sigma protocols and their parallel, AND and OR compositions;</li>
-                <li>Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;</li>
-                <li>Constructions of folding schemes (if time permits).</li>
-                <li>The Fiat-Shamir transformation for sigma protocols;</li>
-                <li>The sumcheck and GKR protocols;</li>
-                <li>Interactive Oracle Proofs for NP statements;</li>
-                <li>Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and</li>
-                <li>Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).</li>
+                <li data-lang-key="teaching_bullet_1">Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;</li>
+                <li data-lang-key="teaching_bullet_2">First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;</li>
+                <li data-lang-key="teaching_bullet_3">Sigma protocols and their parallel, AND and OR compositions;</li>
+                <li data-lang-key="teaching_bullet_4">Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;</li>
+                <li data-lang-key="teaching_bullet_5">Constructions of folding schemes (if time permits).</li>
+                <li data-lang-key="teaching_bullet_6">The Fiat-Shamir transformation for sigma protocols;</li>
+                <li class="active-bullet" data-lang-key="teaching_bullet_7">The sumcheck and GKR protocols;</li>
+                <li data-lang-key="teaching_bullet_8">Interactive Oracle Proofs for NP statements;</li>
+                <li data-lang-key="teaching_bullet_9">Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and</li>
+                <li data-lang-key="teaching_bullet_10">Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).</li>
             </ul>
 
-            <p>I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.</p>
+            <p data-lang-key="teaching_sub_intro">I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.</p>
 
 			<ul>
 				<li><a href="./LabSlides/Lab 1 - Introduction to SAGE.pdf", target='_blank'>Lab 1 - Introduction to SAGE</a></li>
@@ -594,21 +675,21 @@ p {
 				<li><a href="./LabSlides/Lab 6 - Factorisation Attacks.pdf", target='_blank'>Lab 6 - Factorisation Attacks</a></li>
 			</ul>
 
-            <h2 id="notes">Notes</h2>
+            <h2 id="notes" data-lang-key="title_notes">Notes</h2>
             
-                <p>Useful notes, to include a variety of topics in the future.</p>
+                <p data-lang-key="notes_helper">Useful notes, to include a variety of topics in the future.</p>
 
-			<ul>
-				<li><a href="./Misc/pippenger.pdf", target='_blank'>Efficient Multi-exponentiation Algorithm</a></li>
-				<li><a href="./Misc/snfs.pdf", target='_blank'>Special Number Field Sieve Example</a></li>
-			</ul>
+   <ul>
+    <li><a href="./Misc/pippenger.pdf", target='_blank'>Efficient Multi-exponentiation Algorithm</a></li>
+    <li><a href="./Misc/snfs.pdf", target='_blank'>Special Number Field Sieve Example</a></li>
+   </ul>
 
-                <h2>Old Lecture Notes</h2>
+                <h2 data-lang-key="title_old_notes">Old Lecture Notes</h2>
 
-		<p>My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.</p>
+  <p data-lang-key="notes_helper_old">My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.</p>
 
 
-		<p>Part IA</p>
+  <p data-lang-key="notes_partia">Part IA</p>
 			<ul>
 				<li><a href="./P1aNotes/P1a---Analysis-I-Notes.pdf", target='_blank'>Part IA - Analysis I</a></li>
 
@@ -623,7 +704,7 @@ p {
 				<li><a href="./P1aNotes/P1a---Probability-Notes.pdf", target='_blank'>Part IA - Probability</a></li>
 
 			</ul>
-		<p>Part IB</p>
+		<p data-lang-key="notes_partib">Part IB</p>
 			<ul>
 				<li><a href="./P1bNotes/P1b---Analysis-II-Notes.pdf", target='_blank'>Part IB - Analysis II</a></li>
 
@@ -644,7 +725,7 @@ p {
 				<li><a href="./P1bNotes/P1b---Variational-Principles-Notes.pdf", target='_blank'>Part IB - Variational Principles</a></li>
 
 			</ul>
-		<p>Part II</p>
+		<p data-lang-key="notes_partii">Part II</p>
 			<ul>
 
 				<li><a href="./P2Notes/P2---Coding-and-Cryptography-Notes.pdf", target='_blank'>Part II - Coding and Cryptography</a></li>
@@ -667,7 +748,7 @@ p {
 
 			</ul>
 
-		<p>Part III</p>
+		<p data-lang-key="notes_partiii">Part III</p>
 			<ul>
 
 				<li><a href="./P3Notes/P3---Algebraic-Number-Theory-Notes.pdf", target='_blank'>Part III - Algebraic Number Theory</a></li>
@@ -686,7 +767,7 @@ p {
 
 			</ul>
 
-                <h2>Links</h2>
+                <h2 data-lang-key="title_links">Links</h2>
 
 			<ul>
 
@@ -704,8 +785,207 @@ p {
     <!-- /.container -->
     
     <!-- Other people may like it too! -->
-    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
+    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a>
     
+<script>
+const translations = {
+  en: {
+    nav_home: "Home",
+    nav_publications: "Publications",
+    nav_teaching: "Teaching",
+    nav_notes: "Notes",
+    sidebar_name: "Jonathan Bootle",
+    sidebar_role: "Researcher in the Foundational Cryptography Group in the <a HREF=\"https://www.zurich.ibm.com/security/\">Security Department</a> at <a HREF=\"https://www.zurich.ibm.com/\">IBM Research Z&uuml;rich</a>.",
+    bio_intro: "I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.",
+    bio_prev: "Previously, I have worked as a postdoctoral researcher with <a href=\"https://people.eecs.berkeley.edu/~alexch/\">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href=\"https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad\">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href=\"http://www.cs.ucl.ac.uk/staff/j.groth/\">Professor Jens Groth</a> and <a href=\"http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.\">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.",
+    title_publications: "Publications",
+    pub_helper_1: "See also <a HREF=\"https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en\">Google Scholar</a> and <a HREF=\"https://dblp.org/pid/165/8346.html\">DBLP</a>.",
+    pub_helper_2: "Publisher links are often <span class=\"nf\">non-free</span>. Links to <span class=\"free\">free</span> preprints and e-prints are included where available. Presentation slides and other <span class=\"aux\">extra materials</span> are sometimes included.",
+    title_teaching: "Teaching",
+    teaching_intro: "I am teaching the Autumn 2026 course \"263-4665-00L, Zero-Knowledge Proofs\" at ETH Zurich. The catalogue entry for the course is <a href=\"https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en\", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href=\"https://moodle-app2.let.ethz.ch/course/view.php?id=28404\", target='_blank'> here</a>. The course covers roughly the following topics:",
+    teaching_bullet_1: "Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;",
+    teaching_bullet_2: "First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;",
+    teaching_bullet_3: "Sigma protocols and their parallel, AND and OR compositions;",
+    teaching_bullet_4: "Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;",
+    teaching_bullet_5: "Constructions of folding schemes (if time permits).",
+    teaching_bullet_6: "The Fiat-Shamir transformation for sigma protocols;",
+    teaching_bullet_7: "The sumcheck and GKR protocols;",
+    teaching_bullet_8: "Interactive Oracle Proofs for NP statements;",
+    teaching_bullet_9: "Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and",
+    teaching_bullet_10: "Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).",
+    teaching_sub_intro: "I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.",
+    title_notes: "Notes",
+    notes_helper: "Useful notes, to include a variety of topics in the future.",
+    title_old_notes: "Old Lecture Notes",
+    notes_helper_old: "My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.",
+    notes_partia: "Part IA",
+    notes_partib: "Part IB",
+    notes_partii: "Part II",
+    notes_partiii: "Part III",
+    title_links: "Links",
+    page_title: "Jonathan Bootle"
+  },
+  de: {
+    nav_home: "Home",
+    nav_publications: "Publications",
+    nav_teaching: "Teaching",
+    nav_notes: "Notes",
+    sidebar_name: "Jonathan Bootle",
+    sidebar_role: "Researcher in the Foundational Cryptography Group in the <a HREF=\"https://www.zurich.ibm.com/security/\">Security Department</a> at <a HREF=\"https://www.zurich.ibm.com/\">IBM Research Z&uuml;rich</a>.",
+    bio_intro: "I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.",
+    bio_prev: "Previously, I have worked as a postdoctoral researcher with <a href=\"https://people.eecs.berkeley.edu/~alexch/\">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href=\"https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad\">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href=\"http://www.cs.ucl.ac.uk/staff/j.groth/\">Professor Jens Groth</a> and <a href=\"http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.\">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.",
+    title_publications: "Publications",
+    pub_helper_1: "See also <a HREF=\"https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en\">Google Scholar</a> and <a HREF=\"https://dblp.org/pid/165/8346.html\">DBLP</a>.",
+    pub_helper_2: "Publisher links are often <span class=\"nf\">non-free</span>. Links to <span class=\"free\">free</span> preprints and e-prints are included where available. Presentation slides and other <span class=\"aux\">extra materials</span> are sometimes included.",
+    title_teaching: "Teaching",
+    teaching_intro: "I am teaching the Autumn 2026 course \"263-4665-00L, Zero-Knowledge Proofs\" at ETH Zurich. The catalogue entry for the course is <a href=\"https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en\", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href=\"https://moodle-app2.let.ethz.ch/course/view.php?id=28404\", target='_blank'> here</a>. The course covers roughly the following topics:",
+    teaching_bullet_1: "Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;",
+    teaching_bullet_2: "First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;",
+    teaching_bullet_3: "Sigma protocols and their parallel, AND and OR compositions;",
+    teaching_bullet_4: "Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;",
+    teaching_bullet_5: "Constructions of folding schemes (if time permits).",
+    teaching_bullet_6: "The Fiat-Shamir transformation for sigma protocols;",
+    teaching_bullet_7: "The sumcheck and GKR protocols;",
+    teaching_bullet_8: "Interactive Oracle Proofs for NP statements;",
+    teaching_bullet_9: "Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and",
+    teaching_bullet_10: "Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).",
+    teaching_sub_intro: "I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.",
+    title_notes: "Notes",
+    notes_helper: "Useful notes, to include a variety of topics in the future.",
+    title_old_notes: "Old Lecture Notes",
+    notes_helper_old: "My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.",
+    notes_partia: "Part IA",
+    notes_partib: "Part IB",
+    notes_partii: "Part II",
+    notes_partiii: "Part III",
+    title_links: "Links",
+    page_title: "Jonathan Bootle"
+  },
+  fr: {
+    nav_home: "Home",
+    nav_publications: "Publications",
+    nav_teaching: "Teaching",
+    nav_notes: "Notes",
+    sidebar_name: "Jonathan Bootle",
+    sidebar_role: "Researcher in the Foundational Cryptography Group in the <a HREF=\"https://www.zurich.ibm.com/security/\">Security Department</a> at <a HREF=\"https://www.zurich.ibm.com/\">IBM Research Z&uuml;rich</a>.",
+    bio_intro: "I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.",
+    bio_prev: "Previously, I have worked as a postdoctoral researcher with <a href=\"https://people.eecs.berkeley.edu/~alexch/\">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href=\"https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad\">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href=\"http://www.cs.ucl.ac.uk/staff/j.groth/\">Professor Jens Groth</a> and <a href=\"http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.\">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.",
+    title_publications: "Publications",
+    pub_helper_1: "See also <a HREF=\"https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en\">Google Scholar</a> and <a HREF=\"https://dblp.org/pid/165/8346.html\">DBLP</a>.",
+    pub_helper_2: "Publisher links are often <span class=\"nf\">non-free</span>. Links to <span class=\"free\">free</span> preprints and e-prints are included where available. Presentation slides and other <span class=\"aux\">extra materials</span> are sometimes included.",
+    title_teaching: "Teaching",
+    teaching_intro: "I am teaching the Autumn 2026 course \"263-4665-00L, Zero-Knowledge Proofs\" at ETH Zurich. The catalogue entry for the course is <a href=\"https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en\", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href=\"https://moodle-app2.let.ethz.ch/course/view.php?id=28404\", target='_blank'> here</a>. The course covers roughly the following topics:",
+    teaching_bullet_1: "Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;",
+    teaching_bullet_2: "First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;",
+    teaching_bullet_3: "Sigma protocols and their parallel, AND and OR compositions;",
+    teaching_bullet_4: "Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;",
+    teaching_bullet_5: "Constructions of folding schemes (if time permits).",
+    teaching_bullet_6: "The Fiat-Shamir transformation for sigma protocols;",
+    teaching_bullet_7: "The sumcheck and GKR protocols;",
+    teaching_bullet_8: "Interactive Oracle Proofs for NP statements;",
+    teaching_bullet_9: "Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and",
+    teaching_bullet_10: "Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).",
+    teaching_sub_intro: "I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.",
+    title_notes: "Notes",
+    notes_helper: "Useful notes, to include a variety of topics in the future.",
+    title_old_notes: "Old Lecture Notes",
+    notes_helper_old: "My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.",
+    notes_partia: "Part IA",
+    notes_partib: "Part IB",
+    notes_partii: "Part II",
+    notes_partiii: "Part III",
+    title_links: "Links",
+    page_title: "Jonathan Bootle"
+  },
+  ja: {
+    nav_home: "Home",
+    nav_publications: "Publications",
+    nav_teaching: "Teaching",
+    nav_notes: "Notes",
+    sidebar_name: "Jonathan Bootle",
+    sidebar_role: "Researcher in the Foundational Cryptography Group in the <a HREF=\"https://www.zurich.ibm.com/security/\">Security Department</a> at <a HREF=\"https://www.zurich.ibm.com/\">IBM Research Z&uuml;rich</a>.",
+    bio_intro: "I am a cryptography researcher, currently working on efficient zero-knowledge proofs, especially those based on lattice assumptions or error-correcting codes. I am also interested in number theory, game theory, and quantum information theory. I am currently working as a researcher in the Foundational Cryptography group at IBM Research, Z&uuml;rich.",
+    bio_prev: "Previously, I have worked as a postdoctoral researcher with <a href=\"https://people.eecs.berkeley.edu/~alexch/\">Professor Alessandro Chiesa</a> at UC Berkeley, and with <a href=\"https://researcher.watson.ibm.com/researcher/view.php?person=zurich-vad\">Dr Vadim Lyubashevsky</a> at IBM Research, Z&uuml;rich. I was a PhD student at University College London, supervised by <a href=\"http://www.cs.ucl.ac.uk/staff/j.groth/\">Professor Jens Groth</a> and <a href=\"http://www0.cs.ucl.ac.uk/staff/S.Meiklejohn/.\">Professor Sarah Meiklejohn</a>. I also studied Mathematics to Part III at Clare College, University of Cambridge.",
+    title_publications: "Publications",
+    pub_helper_1: "See also <a HREF=\"https://scholar.google.co.uk/citations?user=Qyou-uUAAAAJ&hl=en\">Google Scholar</a> and <a HREF=\"https://dblp.org/pid/165/8346.html\">DBLP</a>.",
+    pub_helper_2: "Publisher links are often <span class=\"nf\">non-free</span>. Links to <span class=\"free\">free</span> preprints and e-prints are included where available. Presentation slides and other <span class=\"aux\">extra materials</span> are sometimes included.",
+    title_teaching: "Teaching",
+    teaching_intro: "I am teaching the Autumn 2026 course \"263-4665-00L, Zero-Knowledge Proofs\" at ETH Zurich. The catalogue entry for the course is <a href=\"https://vorlesungen.ethz.ch/Vorlesungsverzeichnis/lerneinheit.view?lerneinheitId=203251&semkez=2026W&ansicht=LEHRVERANSTALTUNGEN&lang=en\", target='_blank'> here</a>. ETH students can access the Moodle page and resources for the course <a href=\"https://moodle-app2.let.ethz.ch/course/view.php?id=28404\", target='_blank'> here</a>. The course covers roughly the following topics:",
+    teaching_bullet_1: "Definitions of interactive and zero-knowledge proofs and arguments, and commitment schemes;",
+    teaching_bullet_2: "First proof systems for graph isomorphism, graph non-isomorphism and graph-three-colouring;",
+    teaching_bullet_3: "Sigma protocols and their parallel, AND and OR compositions;",
+    teaching_bullet_4: "Constructions of sigma protocols based on the discrete logarithm assumption, SIS assumption, and MPC-in-the-head;",
+    teaching_bullet_5: "Constructions of folding schemes (if time permits).",
+    teaching_bullet_6: "The Fiat-Shamir transformation for sigma protocols;",
+    teaching_bullet_7: "The sumcheck and GKR protocols;",
+    teaching_bullet_8: "Interactive Oracle Proofs for NP statements;",
+    teaching_bullet_9: "Polynomial commitment schemes and a construction based on the discrete logarithm assumption; and",
+    teaching_bullet_10: "Constructions of non-interactive zero-knowledge proofs from pairings (if time permits).",
+    teaching_sub_intro: "I used to help to teach COMPGA18 Cryptanalysis at UCL. Here are some materials from the course as taught in January 2017.",
+    title_notes: "Notes",
+    notes_helper: "Useful notes, to include a variety of topics in the future.",
+    title_old_notes: "Old Lecture Notes",
+    notes_helper_old: "My old, mostly handwritten Cambridge maths notes. I am responsible for any errors or omissions.",
+    notes_partia: "Part IA",
+    notes_partib: "Part IB",
+    notes_partii: "Part II",
+    notes_partiii: "Part III",
+    title_links: "Links",
+    page_title: "Jonathan Bootle"
+  }
+};
+
+const langNames = {
+  en: "English",
+  de: "Deutsch (demnächst verfügbar)",
+  fr: "Français (en construction)",
+  ja: "日本語　（作成中）"
+};
+
+function toggleLangDropdown(event) {
+  event.stopPropagation();
+  const dropdown = document.querySelector('.lang-dropdown');
+  dropdown.classList.toggle('open');
+}
+
+function selectLang(lang, event) {
+  if (event) event.preventDefault();
+  
+  // Save to localStorage
+  localStorage.setItem('preferredLang', lang);
+  
+  // Update button label
+  document.getElementById('selected-lang-name').innerText = langNames[lang] || "English";
+  
+  // Update browser tab title
+  if (translations[lang] && translations[lang].page_title) {
+    document.title = translations[lang].page_title;
+  }
+  
+  // Apply translation to elements
+  document.querySelectorAll('[data-lang-key]').forEach(elem => {
+    const key = elem.getAttribute('data-lang-key');
+    if (translations[lang] && translations[lang][key]) {
+      elem.innerHTML = translations[lang][key];
+    }
+  });
+  
+  // Close dropdown
+  document.querySelector('.lang-dropdown').classList.remove('open');
+}
+
+// Initialise translation on load
+window.addEventListener('DOMContentLoaded', () => {
+  const preferredLang = localStorage.getItem('preferredLang') || 'en';
+  selectLang(preferredLang);
+  
+  // Close dropdown on click outside
+  document.addEventListener('click', () => {
+    document.querySelector('.lang-dropdown').classList.remove('open');
+  });
+});
+</script>
+
 </body>
 
 </html>
