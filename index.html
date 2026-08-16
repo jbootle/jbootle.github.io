@@ -984,7 +984,8 @@ function selectLang(lang, event) {
 
 // Initialise translation on load
 window.addEventListener('DOMContentLoaded', () => {
-  const preferredLang = localStorage.getItem('preferredLang') || 'en';
+  const hashLang = window.location.hash.replace('#', '');
+  const preferredLang = (hashLang && translations[hashLang]) ? hashLang : (localStorage.getItem('preferredLang') || 'en');
   selectLang(preferredLang);
   
   // Close dropdown on click outside
